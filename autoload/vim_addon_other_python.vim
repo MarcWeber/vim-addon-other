@@ -1,11 +1,15 @@
 fun! vim_addon_other_python#RunPythonRHS(background)
-  " test this error format
+  " errorformat taken from http://www.vim.org/scripts/script.php?script_id=477
   let ef= 
-      \   '\ \ File\ "%f"\,\ l'
-      \ .',%C\ %.%#'
-      \ .',%A\ \ File\ "%f"'
-      \ .',\ line\ %l%.%#endf'
-      \ .',%Z%[%^\ ]%\@=%m'
+	\  '%A\ \ File\ \"%f\"\\\,\ line\ %l\\\,%m,'
+	\ .'%C\ \ \ \ %.%#,'
+	\ .'%+Z%.%#Error\:\ %.%#,'
+	\ .'%A\ \ File\ \"%f\"\\\,\ line\ %l,'
+	\ .'%+C\ \ %.%#,'
+	\ .'%-C%p^,'
+	\ .'%Z%m,'
+	\ .'%-G%.%#'
+
 
   let args = ["python"] + [ expand('%')]
   let args = eval(input('command args: ', string(args)))
