@@ -1,5 +1,3 @@
 call actions#AddAction('run php background', {'action': funcref#Function('vim_addon_other_python#RunPHPRHS', {'args': [1]})})
 call actions#AddAction('run python background', {'action': funcref#Function('vim_addon_other_python#RunPythonRHS', {'args': [1]})})
 " call actions#AddAction('run python using make', {'action': funcref#Function('vim_addon_other_python#RunPythonRHS', {'args': [0]})})
-call actions#AddAction('run ghc', {'action': funcref#Function('vim_addon_other_haskell#RunGHCRHS')})
-call actions#AddAction('run cabal build', {'action': funcref#Function('vim_addon_other_haskell#RunCabalBuild')})
