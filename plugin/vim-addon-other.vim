@@ -22,3 +22,15 @@ command! -nargs=* Bookmark call vim_addon_other#Bookmark(<f-args>)
 noremap <m-w> :call vim_addon_other#SetWindowSize("h")<cr>
 " m-s-w could make trouble ..
 noremap <m-s-w> :call vim_addon_other#SetWindowSize("w")<cr>
+
+
+" allow <m-x/X> mappings to work in vim (remap <esc-x> to <m-x>)
+" Maybe there is a smarter way of doing this. It works fine for me.
+" omitting o,O,w,W,e,E,j,k,h,l,c,C,v,V because they are used often after <esc>
+" This would be too annoying. I ue m-t otherwise so I keep t,T
+for i in split("abdgimnpqrstuxyzABDGHIJKLMNPQRSTUXYZ0123456789",'.\zs')
+  exec 'map <esc>'.i.' <m-'.i.'>'
+endfor
+
+
+nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine()<CR>
