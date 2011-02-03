@@ -32,3 +32,17 @@ function! vim_addon_other#SmartGotoLine()
     exec 'normal '.lnum.'G'
 endfunction
 
+" TODO: support visual mode!
+fun! vim_addon_other#KeepOrDropLines(keep_or_drop)
+  let drop = a:keep_or_drop == "drop"
+  let where = &buftype == "quickfix" ? "quickfix window" : "buffer"
+
+  let regex = input(a:keep_or_drop.' lines in '. where.' :')
+
+  if where == "quickfix window"
+    let list = getqflist()
+    call setqflist(filter(getqflist(), '(has_key(v:val,"bufnr") ? bufname(v:val.bufnr)."|" : "").v:val.text '.(drop ? '!~' : '=~').' '.string(regex)))
+  else
+    exec (drop ? "g" : "v").'/'.regex.'/d'
+  endif
+endf
