@@ -66,7 +66,13 @@ endf
 
 fun! vim_addon_other#GnuIdutils_Lid()
 "lid","-R","grep","-r",word
-  let cmd = funcref#Call( get(s:config, 'lid', funcref#Function('return ["lid", "-R", "grep", input("lid -R grep (^word$ for whole word matchr :") , "."]') ) )
+  let cmd = funcref#Call( get(s:config, 'lid', funcref#Function('return ["lid", "-R", "grep", input("lid -R grep (^word$ for whole word matchr :")]') ) )
   let errorFormat = get(s:config,'greplid_ef', '%f:%l:%m')
   call bg#RunQF(cmd,'c',errorFormat)
+  return
+
+  " non bg version
+  exec 'set efm='.errorFormat
+  exec 'set grepprg='.cmd[0]
+  exec 'grep '.join(cmd[1:],' ')
 endf
