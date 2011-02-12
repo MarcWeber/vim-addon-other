@@ -37,3 +37,13 @@ nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine()<CR>
 
 noremap <m-k><m-l> :call vim_addon_other#KeepOrDropLines("keep")<cr>
 noremap <m-d><m-l> :call vim_addon_other#KeepOrDropLines("drop")<cr>
+
+
+" grep
+" memo: -g -r = grep -r
+noremap <m-g><m-r> :call vim_addon_other#GrepR()<cr>
+
+noremap <m-m><m-i><m-d> :call vim_addon_other#GnuIdutils_Mkid()<cr>
+noremap <m-l><m-i><m-d> :call vim_addon_other#GnuIdutils_Lid()<cr>
+
+" gnu id utils
