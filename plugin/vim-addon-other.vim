@@ -35,8 +35,8 @@ endfor
 
 nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine()<CR>
 
-noremap <m-k><m-l> :call vim_addon_other#KeepOrDropLines("keep")<cr>
-noremap <m-d><m-l> :call vim_addon_other#KeepOrDropLines("drop")<cr>
+noremap \kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
+noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
 
 
 " grep
