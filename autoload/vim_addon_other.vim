@@ -76,3 +76,17 @@ fun! vim_addon_other#GnuIdutils_Lid()
   exec 'set grepprg='.cmd[0]
   exec 'grep '.join(cmd[1:],' ')
 endf
+
+
+fun! vim_addon_other#RenameFile(newname)
+  let file = expand('%')
+  exec 'saveas '.a:newname
+  if delete(file) !=0
+    echoe "could'n delete file ". file
+  endif
+endfun
+
+fun! vim_addon_other#ContinueWorkOnCopy(newname)
+  let file = expand('%')
+  exec 'saveas '.a:newname
+endfun

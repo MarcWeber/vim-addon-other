@@ -47,3 +47,9 @@ noremap \mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
 noremap \lid :call vim_addon_other#GnuIdutils_Lid()<cr>
 
 " gnu id utils
+
+command! -nargs=1 -complete=file RenameFile call vim_addon_other#RenameFile(<f-args>)<cr>
+command! -nargs=1 -complete=file ContinueWorkOnCopy call vim_addon_other#ContinueWorkOnCopy(<f-args>)<cr>
+
+noremap \cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+noremap \mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
