@@ -53,3 +53,7 @@ command! -nargs=1 -complete=file ContinueWorkOnCopy call vim_addon_other#Continu
 
 noremap \cp :RenameFile<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
 noremap \mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setcmdpos(getcmdpos()-strlen(expand("%:t"))),".","","g")<cr>
+
+" insert filename or path into commandline
+cmap >fn <c-r>=expand('%:p')<cr>
+cmap >fd <c-r>=expand('%:p:h').'/'<cr>
