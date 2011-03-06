@@ -1,4 +1,4 @@
-" scriptmanager#DefineAndBind('s:config','g:config',{})
+" vam#DefineAndBind('s:config','g:config',{})
 if !exists('g:config') | let g:config = {} | endif | let s:config = g:config
 
 fun! vim_addon_other#Bookmark(...) abort
