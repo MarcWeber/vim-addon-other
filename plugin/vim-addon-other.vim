@@ -57,3 +57,5 @@ noremap \mv :ContinueWorkOnCopy<space><c-r>=expand("%")<cr><c-r>=substitute(setc
 " insert filename or path into commandline
 cmap >fn <c-r>=expand('%:p')<cr>
 cmap >fd <c-r>=expand('%:p:h').'/'<cr>
+vnoremap * :<C-u>call vim_addon_other#VSetSearch()<CR>/<CR>
+vnoremap # :<C-u>call vim_addon_other#VSetSearch()<CR>?<CR>

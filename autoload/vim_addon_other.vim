@@ -90,3 +90,14 @@ fun! vim_addon_other#ContinueWorkOnCopy(newname)
   let file = expand('%')
   exec 'saveas '.a:newname
 endfun
+
+" Visual mode search vsearch.vim (by godlygeek)
+function! vim_addon_other#VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  " Use this line instead of the above to match matches spanning across lines
+  "let @/ = '\V' . substitute(escape(@@, '\'), '\_s\+', '\\_s\\+', 'g')
+  call histadd('/', substitute(@/, '[?/]', '\="\\%d".char2nr(submatch(0))', 'g'))
+  let @@ = temp
+endfunction
