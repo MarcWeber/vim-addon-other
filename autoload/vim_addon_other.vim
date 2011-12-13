@@ -51,7 +51,7 @@ fun! vim_addon_other#KeepOrDropLines(keep_or_drop)
 endf
 
 fun! vim_addon_other#GrepR()
-  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "-r","-n", input("grep -r for :") , "."]') ) )
+  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "-r","-n", "--", input("grep -r for :") , "."]') ) )
   let errorFormat = get(s:config,'grepprg_ef', '%f:%l:%m')
   call bg#RunQF(cmd,'c',errorFormat)
 endf
@@ -101,3 +101,19 @@ function! vim_addon_other#VSetSearch()
   call histadd('/', substitute(@/, '[?/]', '\="\\%d".char2nr(submatch(0))', 'g'))
   let @@ = temp
 endfunction
+
+
+" usage: inoremap <m-=> <c-r>=tovl#map#SurroundBy(' ','=',' ')<cr>
+" This will add leading and trailing white spaces if not present
+" memomic: Insert L eading T railing text as well
+"
+" usage (ftplugin):
+" fun! s:LTSp(s)
+"   return vim_addon_other#InsertLT(' ',a:s,' ')
+" endf
+" inoremap <buffer> <m->> <c-r>=<sid>LTSp("->")<cr>
+fun! vim_addon_other#InsertLT(before, text, after)
+  let [b,a] = tovl#buffer#SplitCurrentLineAtCursor()
+  return (b =~ a:before.'$' ? '' : a:before ).a:text.(a =~ '^'.a:after ? '' : a:after )
+endf
+

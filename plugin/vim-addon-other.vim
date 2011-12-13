@@ -56,3 +56,7 @@ cmap >fn <c-r>=expand('%:p')<cr>
 cmap >fd <c-r>=expand('%:p:h').'/'<cr>
 vnoremap * :<C-u>call vim_addon_other#VSetSearch()<CR>/<CR>
 vnoremap # :<C-u>call vim_addon_other#VSetSearch()<CR>?<CR>
+
+augroup GOTO_MARKER
+  autocmd BufRead *  call search('<<<<<<')
+augroup end
