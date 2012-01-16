@@ -60,3 +60,7 @@ vnoremap # :<C-u>call vim_addon_other#VSetSearch()<CR>?<CR>
 augroup GOTO_MARKER
   autocmd BufRead *  call search('<<<<<<')
 augroup end
+
+" sometimes :tjump shows to many hits. Use this to narrow down by typing
+" characters using tlib's List function:
+command!-nargs=1 TJump call SelectTag(<f-args>)

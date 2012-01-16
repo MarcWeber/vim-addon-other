@@ -117,3 +117,8 @@ fun! vim_addon_other#InsertLT(before, text, after)
   return (b =~ a:before.'$' ? '' : a:before ).a:text.(a =~ '^'.a:after ? '' : a:after )
 endf
 
+fun! vim_addon_other#SelectTag(regex)
+  let tag = eval(tlib#input#List('s','select tag', map(taglist(a:regex), 'string([v:val.kind, v:val.filename, v:val.cmd])')))
+  exec 'e '.fnameescape(tag[1])
+  exec tag[2]
+endf
