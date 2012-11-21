@@ -113,9 +113,16 @@ endfunction
 " endf
 " inoremap <buffer> <m->> <c-r>=<sid>LTSp("->")<cr>
 fun! vim_addon_other#InsertLT(before, text, after)
-  let [b,a] = tovl#buffer#SplitCurrentLineAtCursor()
+  " TODO
+  let [b,a] = vim_addon_other#SplitCurrentLineAtCursor()
   return (b =~ a:before.'$' ? '' : a:before ).a:text.(a =~ '^'.a:after ? '' : a:after )
 endf
+
+fun! vim_addon_other#SplitCurrentLineAtCursor()
+  let pos = col('.') -1
+  let line = getline('.')
+  return [strpart(line,0,pos), strpart(line, pos, len(line)-pos)]
+endfunction
 
 fun! vim_addon_other#SelectTag(regex)
   let tag = eval(tlib#input#List('s','select tag', map(taglist(a:regex), 'string([v:val.kind, v:val.filename, v:val.cmd])')))

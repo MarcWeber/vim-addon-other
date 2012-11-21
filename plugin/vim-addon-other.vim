@@ -5,7 +5,7 @@ for i in range(1,8)
 endfor
 
 " faster novigation in windows:
-for i in ["i","j","k","l","q"]
+for i in ["i","j","k","l","q","h"]
   exec 'noremap <m-s-'.i.'> <c-w>'.i
 endfor
 
