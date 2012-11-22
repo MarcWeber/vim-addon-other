@@ -63,4 +63,10 @@ augroup end
 
 " sometimes :tjump shows to many hits. Use this to narrow down by typing
 " characters using tlib's List function:
-command!-nargs=1 TJump call SelectTag(<f-args>)
+command!-nargs=1 TJump call vim_addon_other#SelectTag(<f-args>)
+
+command! -nargs=1 RubyLibGrep exec 'grep -ri '.shellescape(<f-args>).' '.join(map(split($RUBYLIB,':'), 'shellescape(v:val)." "')," ")
+
+augroup GOTO_LINE
+  autocmd BufNewFile *:* call vim_addon_other#GotoFileLine()
+augroup end

@@ -129,3 +129,12 @@ fun! vim_addon_other#SelectTag(regex)
   exec 'e '.fnameescape(tag[1])
   exec tag[2]
 endf
+
+fun! vim_addon_other#GotoFileLine()
+  let n = expand('%')
+  let m = matchlist(n, '\(.*\)[:]\(\d\+\)')
+  if filereadable(m[1])
+    exec 'sp '.fnameescape(m[1]) | exec m[2]
+    exec 'bw! '.fnameescape(n)
+  endif
+endf
