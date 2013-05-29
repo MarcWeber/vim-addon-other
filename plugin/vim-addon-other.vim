@@ -30,7 +30,9 @@ for i in split("abdgimnpqrstuxyzABDGHIJKLMNPQRSTUXYZ0123456789",'.\zs')
 endfor
 
 
-nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine()<CR>
+nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine(0)<CR>
+onoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
+vnoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
 
 noremap \kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
 noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>

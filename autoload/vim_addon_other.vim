@@ -25,14 +25,20 @@ endf
 " jump to nearest line ending with v:count
 " thus if you are on line 20234500 and you type 80 you'll jump to 20234480
 " credits to ujihisa who had this idea
-function! vim_addon_other#SmartGotoLine()
+"
+" problem: you cannot jump to 05, becaues 5 will be passed via v:count
+function! vim_addon_other#SmartGotoLine(visual_select)
     let c = v:count
     let half = ('1'.repeat('0',len(c))) / 2
     let lnum = line('.')[:-len(c)-1].c
     if  lnum > half + line('.')
       let lnum -= 2* half
     endif
-    exec 'normal '.lnum.'G'
+    if a:visual_select
+      exec 'normal! V'.lnum.'G'
+    else
+      exec 'normal '.lnum.'G'
+    endif
 endfunction
 
 " TODO: support visual mode!
