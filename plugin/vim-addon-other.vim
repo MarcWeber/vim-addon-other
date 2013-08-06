@@ -1,4 +1,3 @@
-
 " m-X key jump to tab X
 for i in range(1,8)
   exec 'map <m-'.i.'> '.i.'gt'
@@ -34,13 +33,16 @@ nnoremap \G :<C-U>call vim_addon_other#SmartGotoLine(0)<CR>
 onoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
 vnoremap \G :<C-u>call vim_addon_other#SmartGotoLine(1)<CR>
 
+" yank a document
+" onoremap D :<C-U>normal! ggVG
+
 noremap \kl :call vim_addon_other#KeepOrDropLines("keep")<cr>
 noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
 
 
 " grep
 " memo: -g -r = grep -r
-noremap <m-g><m-r> :call vim_addon_other#GrepR()<cr>
+noremap \gr :call vim_addon_other#GrepR()<cr>
 
 noremap \mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
 noremap \lid :call vim_addon_other#GnuIdutils_Lid()<cr>
@@ -72,3 +74,7 @@ command! -nargs=1 RubyLibGrep exec 'grep -ri '.shellescape(<f-args>).' '.join(ma
 augroup GOTO_LINE
   autocmd BufNewFile *:* call vim_addon_other#GotoFileLine()
 augroup end
+
+" delete, yank a document
+noremap dad ggGVd
+noremap yad ggVGy
