@@ -78,3 +78,8 @@ augroup end
 " delete, yank a document
 noremap dad ggGVd
 noremap yad ggVGy
+
+
+" faster writing
+inoremap <m-s-r> <esc>:update<cr>
+nnoremap <m-s-r> :update<cr>
