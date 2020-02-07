@@ -1,5 +1,5 @@
 " vam#DefineAndBind('s:config','g:config',{})
-if !exists('g:config') | let g:config = {} | endif | let s:config = g:config
+if !exists('g:vim_addon_other_config') | let g:vim_addon_other_config = {} | endif | let s:config = g:vim_addon_other_config
 
 fun! vim_addon_other#Bookmark(...) abort
   let msg = join(a:000," ")
@@ -56,8 +56,16 @@ fun! vim_addon_other#KeepOrDropLines(keep_or_drop)
   endif
 endf
 
-fun! vim_addon_other#GrepR()
-  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "-r","-n", "--", input("grep -r for :") , "."]') ) )
+fun! vim_addon_other#GrepR(excludes)
+  let excludes = split('--exclude-dir=.cvs --exclude=tags --exclude=TAGS --exclude=*.png --exclude=*.gz --exclude=*.jpg --exclude=*.PNG --exclude=*.JPG  --exclude=*.annot -I --exclude-dir=.git --exclude=tags --exclude=TAGS --exclude=*.png --exclude=*.gz --exclude=*.jpg --exclude=*.PNG --exclude=*.JPG  --exclude=*.annot -I --exclude-dir=.hg --exclude=tags --exclude=TAGS --exclude=*.png --exclude=*.gz --exclude=*.jpg --exclude=*.PNG --exclude=*.JPG  --exclude=*.annot -I --exclude-dir=.svn --exclude=tags --exclude=TAGS --exclude=*.png --exclude=*.gz --exclude=*.jpg --exclude=*.PNG --exclude=*.JPG  --exclude=*.annot -I', '')
+        \ + map(a:excludes, '"--exclude-dir=".v:val')
+
+  if (isdirectory('dist') && filereadable('package.json'))
+    call add(excludes, '--exclude-dir=dist')
+    call add(excludes, '--exclude-dir=node_modules')
+  endif
+
+  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "-r","-n"] + '.string(excludes).' + ["--", substitute(input("grep -r for :"), "[$]", "\\\\$", "g" ) , "."]') ) )
   let errorFormat = get(s:config,'grepprg_ef', '%f:%l:%m')
   call bg#RunQF(cmd,'c',errorFormat)
 endf
@@ -138,9 +146,10 @@ endf
 
 fun! vim_addon_other#GotoFileLine()
   let n = expand('%')
-  let m = matchlist(n, '\(.*\)[:]\(\d\+\)')
+  let m = matchlist(n, '\(.\{-}\)\([:]\(\d\+\)\)\%([:]\(\d\+\)\)\?$')
   if filereadable(m[1])
     exec 'sp '.fnameescape(m[1]) | exec m[2]
+    if m[3] > 0 | exec 'normal '.m[3].'|' | endif
     exec 'bw! '.fnameescape(n)
   endif
 endf

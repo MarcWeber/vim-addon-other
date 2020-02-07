@@ -42,7 +42,8 @@ noremap \dl :call vim_addon_other#KeepOrDropLines("drop")<cr>
 
 " grep
 " memo: -g -r = grep -r
-noremap \gr :call vim_addon_other#GrepR()<cr>
+noremap \gr :call vim_addon_other#GrepR(['node_modules'])<cr>
+noremap \Gr :call vim_addon_other#GrepR([])<cr>
 
 noremap \mid :call vim_addon_other#GnuIdutils_Mkid()<cr>
 noremap \lid :call vim_addon_other#GnuIdutils_Lid()<cr>
