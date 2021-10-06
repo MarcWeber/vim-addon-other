@@ -62,10 +62,9 @@ fun! vim_addon_other#GrepR(excludes)
 
   if (isdirectory('dist') && filereadable('package.json'))
     call add(excludes, '--exclude-dir=dist')
-    call add(excludes, '--exclude-dir=node_modules')
   endif
 
-  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "-r","-n"] + '.string(excludes).' + ["--", substitute(input("grep -r for :"), "[$]", "\\\\$", "g" ) , "."]') ) )
+  let cmd = funcref#Call( get(s:config,'grepprg', funcref#Function('return ["grep", "'.(a:excludes == [] ? '-R': '-r').'","-n"] + '.string(excludes).' + ["--", substitute(input("grep -r for :"), "[$]", "\\\\$", "g" ) , "."]') ) )
   let errorFormat = get(s:config,'grepprg_ef', '%f:%l:%m')
   call bg#RunQF(cmd,'c',errorFormat)
 endf
